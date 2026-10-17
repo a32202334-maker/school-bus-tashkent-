@@ -1,0 +1,337 @@
+@import "@fontsource-variable/inter";
+
+@import "tailwindcss";
+@import "@agent-native/toolkit/styles.css";
+
+@source "./**/*.{ts,tsx}";
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 220 36% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 36% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 36% 12%;
+  --primary: 44 100% 49%;
+  --primary-foreground: 220 36% 12%;
+  --secondary: 214 24% 95%;
+  --secondary-foreground: 220 36% 12%;
+  --muted: 214 24% 95%;
+  --muted-foreground: 215 16% 45%;
+  --accent: 44 100% 94%;
+  --accent-foreground: 220 36% 12%;
+  --destructive: 0 91% 71%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 214 20% 89%;
+  --input: 214 20% 89%;
+  --ring: 44 100% 49%;
+  --radius: 0.85rem;
+  --sidebar-background: 220 36% 12%;
+  --sidebar-foreground: 215 20% 75%;
+  --sidebar-primary: 44 100% 49%;
+  --sidebar-primary-foreground: 220 36% 12%;
+  --sidebar-accent: 220 31% 18%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 220 25% 24%;
+  --sidebar-ring: 44 100% 49%;
+  --chat-sidebar-width: 17.25rem;
+  --chat-sidebar-content-inset: 0.5rem;
+  --chat-sidebar-row-padding: 0.75rem;
+  --chat-sidebar-title-fade: 1.25rem;
+}
+
+.chat-layout-shell {
+  --agent-layout-left-drawer-expanded-width: var(--chat-sidebar-width);
+  --agent-native-lower-surface: var(--agent-kit-nav-surface);
+}
+
+.agentkit-chat-empty-copy {
+  text-align: center;
+}
+
+.agentkit-chat-empty-copy h1 {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.agent-kit-chat-footer-stack {
+  inline-size: min(100%, 47rem);
+  margin-inline: auto;
+  pointer-events: auto;
+}
+
+.agent-kit-chat-footer-stack > .agentkit-composer-stack {
+  inline-size: 100%;
+}
+
+.agent-kit-chat-guided-question {
+  max-block-size: min(32rem, 58dvh);
+  overflow: auto;
+  margin-block-end: 0.5rem;
+  border: 1px solid var(--agentkit-border);
+  border-radius: var(--agentkit-radius);
+  background: var(--agentkit-surface);
+  box-shadow: var(--agentkit-elevation);
+}
+
+.chat-sidebar-history .an-chat-history__list {
+  padding-top: 0;
+}
+
+.chat-sidebar-history .an-chat-history__section-label {
+  padding: 8px
+    calc(var(--chat-sidebar-content-inset) + var(--chat-sidebar-row-padding))
+    5px;
+  color: hsl(var(--sidebar-foreground) / 0.66);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.chat-sidebar-history.an-chat-history--rail .an-chat-history-row {
+  margin-inline: var(--chat-sidebar-content-inset);
+  border-radius: calc(var(--radius) + 2px);
+}
+
+.chat-sidebar-history.an-chat-history--rail .an-chat-history-row__button {
+  min-height: 34px;
+  padding-block: 7px;
+  padding-inline: var(--chat-sidebar-row-padding);
+  color: hsl(var(--sidebar-foreground));
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row--has-menu
+  .an-chat-history-row__button {
+  padding-inline-end: calc(var(--chat-sidebar-row-padding) + 1.5rem);
+}
+
+.chat-sidebar-history .an-chat-history-row__title {
+  flex: 1 1 auto;
+  color: hsl(var(--sidebar-accent-foreground));
+  font-size: 13px;
+  font-weight: 400;
+  text-overflow: clip;
+}
+
+.chat-sidebar-thread-title-shell {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-sidebar-thread-title {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.chat-sidebar-thread-running {
+  color: hsl(var(--sidebar-foreground) / 0.72);
+}
+
+.chat-sidebar-thread-title[data-overflow="true"] {
+  mask-image: linear-gradient(
+    to right,
+    hsl(var(--foreground)) 0,
+    hsl(var(--foreground)) calc(100% - var(--chat-sidebar-title-fade)),
+    hsl(var(--foreground) / 0) 100%
+  );
+}
+
+.chat-sidebar-thread-title__content {
+  display: block;
+  width: max-content;
+  transform: translateX(0);
+}
+
+.an-chat-history-row:hover
+  .chat-sidebar-thread-title[data-overflow="true"]
+  .chat-sidebar-thread-title__content {
+  animation: chat-sidebar-title-reveal
+    var(--chat-sidebar-title-duration, 1800ms) ease-in-out 350ms;
+}
+
+.chat-sidebar-thread-details {
+  border-color: hsl(var(--sidebar-border));
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row__menu-trigger--pinned {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row:hover
+  .an-chat-history-row__menu-trigger--pinned,
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row:focus-within
+  .an-chat-history-row__menu-trigger--pinned,
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row__menu-trigger--pinned[aria-expanded="true"] {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+@keyframes chat-sidebar-title-reveal {
+  to {
+    transform: translateX(calc(-1 * var(--chat-sidebar-title-shift, 0px)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .an-chat-history-row:hover .chat-sidebar-thread-title__content {
+    animation: none;
+  }
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row--active
+  .an-chat-history-row__button {
+  background: hsl(var(--sidebar-accent));
+  color: hsl(var(--sidebar-accent-foreground));
+}
+
+.dark {
+  --background: 220 36% 12%;
+  --foreground: 0 0% 96%;
+  --card: 220 31% 17%;
+  --card-foreground: 0 0% 96%;
+  --popover: 220 31% 17%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 44 100% 49%;
+  --primary-foreground: 220 36% 12%;
+  --secondary: 220 25% 22%;
+  --secondary-foreground: 0 0% 96%;
+  --muted: 220 25% 22%;
+  --muted-foreground: 215 16% 68%;
+  --accent: 220 25% 22%;
+  --accent-foreground: 0 0% 96%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 220 22% 27%;
+  --input: 220 22% 27%;
+  --ring: 44 100% 49%;
+  --radius: 0.85rem;
+  --sidebar-background: 220 36% 9%;
+  --sidebar-foreground: 215 20% 75%;
+  --sidebar-primary: 44 100% 49%;
+  --sidebar-primary-foreground: 220 36% 12%;
+  --sidebar-accent: 220 31% 18%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 220 25% 24%;
+  --sidebar-ring: 44 100% 49%;
+}
+
+.mobile-nav-link {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-radius: 0.75rem;
+  padding-inline: 0.75rem;
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:focus-visible {
+  background: #f1f4f8;
+}
+
+.site-page-enter {
+  animation: site-page-enter 180ms ease-out both;
+}
+
+.mobile-menu-enter {
+  animation: mobile-menu-enter 160ms ease-out both;
+}
+
+.schoolbus-hero-enter {
+  animation: schoolbus-hero-enter 460ms cubic-bezier(.2, .7, .2, 1) both;
+}
+
+@keyframes site-page-enter {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mobile-menu-enter {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes schoolbus-hero-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-page-enter,
+  .mobile-menu-enter,
+  .schoolbus-hero-enter {
+    animation: none;
+  }
+}
+
+.section-kicker {
+  margin-bottom: 0.85rem;
+  color: #986700;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.section-title {
+  color: #101a2e;
+  font-size: clamp(2rem, 4.2vw, 3.35rem);
+  font-weight: 850;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+:focus-visible {
+  outline: 3px solid #ffb900;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter Variable", "Inter", sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.22);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.34);
+}
